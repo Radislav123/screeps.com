@@ -8,7 +8,7 @@ You can call anything defined in `js_global` like you would a normal function.  
 _controller_properties.py_
 
 ```py
-from defs import *
+from screeps_api import *
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -19,11 +19,12 @@ __pragma__('noalias', 'set')
 __pragma__('noalias', 'type')
 __pragma__('noalias', 'update')
 
+
 def get_controller_level(room_name):
     """Returns the controller level for Game.rooms[room_name]"""
-    
+
     room = Game.rooms[room_name]
-    
+
     if room and room.controller:
         return room.controller.level
     else:
@@ -34,7 +35,7 @@ _main.py_
 
 ```py
 import controller_properties
-from defs import *
+from screeps_api import *
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -48,10 +49,12 @@ __pragma__('noalias', 'update')
 # Create a new entry for each new command
 js_glboal.get_controller_level = controller_properties.get_controller_level
 
+
 def main():
     """You normal screeps code here"""
     pass
-    
+
+
 module.exports.loop = main
 ```
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import errno
 import json
-import os
 import subprocess
 import sys
 import urllib.parse
@@ -13,6 +12,8 @@ import os
 import shutil
 
 import file_expander
+
+import ssl
 
 transcrypt_arguments = ['-n', '-p', '.none']
 transcrypt_dirty_args = transcrypt_arguments + []
@@ -165,9 +166,9 @@ class Configuration:
     def source_dir(self):
         """:rtype: str"""
         if self.flatten:
-            return os.path.join(self.base_dir, 'src', '__py_build__')
+            return os.path.join(self.base_dir, 'source', '__py_build__')
         else:
-            return os.path.join(self.base_dir, 'src')
+            return os.path.join(self.base_dir, 'source')
 
 
 def load_config(base_dir):
@@ -317,7 +318,10 @@ def upload(config):
         print("uploading files to branch {}{}...".format(config.branch, " on PTR" if config.ptr else ""))
 
     # any errors will be thrown.
-    with urllib.request.urlopen(request) as response:
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+    with urllib.request.urlopen(request, context = context) as response:
         decoded_data = response.read().decode('utf-8')
         json_response = json.loads(decoded_data)
         if not json_response.get('ok'):

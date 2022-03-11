@@ -32,7 +32,7 @@ class FileExpander:
         :type base_dir: str
 
         """
-        self.base_dir = pathlib.Path(base_dir).joinpath('src')
+        self.base_dir = pathlib.Path(base_dir).joinpath('source')
         self.build_dir = self.verify_build_directory()
 
     def verify_build_directory(self):
