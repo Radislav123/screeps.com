@@ -1,5 +1,5 @@
-from screeps_api import *
-import harvester
+from source.screeps_api import *
+from source.creeps import harvester
 
 # These are currently required for Transcrypt in order to use the following names in JavaScript.
 # Without the 'noalias' pragma, each of the following would be translated into something like 'py_Infinity' or
@@ -17,32 +17,21 @@ if True:
 
 
 def main():
-    """
-    Main game logic loop.
-    """
+    """Main game logic loop."""
 
     # Run each creep
+    print("total creeps: {}".format(len(Game.creeps)))
     for name in Object.keys(Game.creeps):
         creep = Game.creeps[name]
-        harvester.run_harvester(creep)
+        print("creep: {}".format(creep.name))
 
     # Run each spawn
     for name in Object.keys(Game.spawns):
-        spawn = Game.spawns[name]
-        if not spawn.spawning:
-            # Get the number of our creeps in the room.
-            num_creeps = _.sum(Game.creeps, lambda c: c.pos.roomName == spawn.pos.roomName)
-            # If there are no creeps, spawn a creep once energy is at 250 or more
-            if num_creeps < 0 and spawn.room.energyAvailable >= 250:
-                spawn.createCreep([WORK, CARRY, MOVE, MOVE])
-            # If there are less than 15 creeps but at least one, wait until all spawns and extensions are full before
-            # spawning.
-            elif num_creeps < 15 and spawn.room.energyAvailable >= spawn.room.energyCapacityAvailable:
-                # If we have more energy, spawn a bigger creep.
-                if spawn.room.energyCapacityAvailable >= 350:
-                    spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE])
-                else:
-                    spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE])
+        structure_spawn = Game.spawns[name]
+        if not structure_spawn.spawning and structure_spawn.room.energyAvailable >= len(harvester.Harvester.body * 50):
+            harvester.Harvester.spawn(structure_spawn)
+        else:
+            print(Game.time)
 
 
 module.exports.loop = main

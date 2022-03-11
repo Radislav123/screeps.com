@@ -7,7 +7,7 @@ structure.
 Every time Transcrypt is run, user generated .py source code will be copied so
 that they all sit directly under __py_build__.  Only new/updated files will
 actually be copied; unmodified files are not replaced in __py_build__. Files can
-reside directly under src/, or in subdirectories under src/.
+reside directly under source/, or in subdirectories under source/.
 
 The -xpath option available through Transcrypt already provides this
 functionality; this package serves as a replacement for anyone experiencing
@@ -39,7 +39,7 @@ class FileExpander:
         """Verifies existence and contents of __py_build__ directory.
 
         Missing directories are either created, or copied from its counterpart
-        in src/""
+        in source/""
 
         :return: concrete Path object of the __py_build__ directory
         :rtype: pathlib.Path
@@ -67,9 +67,9 @@ class FileExpander:
     def verify_defs_integrity(source_dir, build_dir):
         """Verifies integrity of defs/ folder in __py_build__
 
-        File contents under src/defs are compared against __py_build__/defs; a
+        File contents under source/defs are compared against __py_build__/defs; a
         file update will only be triggered by modifications to files under
-        src/defs.
+        source/defs.
 
         :rtype: None
         """
@@ -77,7 +77,7 @@ class FileExpander:
         defs_source_files = [f.absolute() for f in source_dir.glob('**/*.py')]
 
         for file in defs_source_files:
-            slice_index = file.parts.index('src') + 1
+            slice_index = file.parts.index('source') + 1
             partner = build_dir.joinpath(*file.parts[slice_index:])
 
             if not partner.is_file() or not filecmp.cmp(str(file), str(partner)):
@@ -86,8 +86,8 @@ class FileExpander:
     def expand_files(self):
         """Creates a flattened file structure of all user-defined screeps code
 
-        Copies all modified or new .py files found directly under src/, or in
-        subdirectories under src/, to __py_build__.
+        Copies all modified or new .py files found directly under source/, or in
+        subdirectories under source/, to __py_build__.
 
         :return: total number of files copied to __py_build__
         :rtype: int
@@ -132,7 +132,7 @@ class FileExpander:
                 else:
                     target_directories.append(file_object)
 
-        # Directories processed separately to avoid performing glob on all of src/
+        # Directories processed separately to avoid performing glob on all of source/
         for directory in target_directories:
             for file in directory.glob('**/*.py'):
                 target_files.append(file)
