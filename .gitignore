@@ -1,98 +1,12 @@
-# Compiled source #
-###################
-*.com
-*.dll
-*.exe
-*.o
-*.so
+# compiled and cached
+dist/
+__target__/
 __pycache__/
 *.py[cod]
-__javascript__/
-__target__/
-target/
 
-# Packages #
-############
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-*.db
-
-# Distribution / packaging #
-############################
-env/
-bin/
-build/
-develop-eggs/
-dist/
-eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Project files #
-#####################
-.ropeproject
-.mr.developer.cfg
-.project
-.pydevproject
-.classpath
-.externalToolBuilders
-.idea
-.project
-.settings
-build
-dist
-nbproject
-atlassian-ide-plugin.xml
-build.xml
-nb-configuration.xml
-*.iml
-*.ipr
-*.iws
-node_modules
-env
-.screeps-password
-.screeps-email
+# project settings
 config.json
-__py_build__/
 
-# Misc files #
-##############
-*.bak
-*.log
-*.pot
-docs/_build/
-*\ Notes.txt
-.mypy_cache
-# it's recommended that we check this in, but with how infrequently this project is updated,
-# that would cause everyone to end up with an extremely outdated rollup.
-package-lock.json
-
-# Unit test / coverage reports #
-################################
-htmlcov/
-.tox/
-.coverage
-.cache
-nosetests.xml
-coverage.xml
-/config.json
-/git-cloned/
-/markdown/
+# environment and libraries
+env/
+node_modules/
